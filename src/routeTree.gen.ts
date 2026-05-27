@@ -22,7 +22,10 @@ import { Route as ProductsIdRouteImport } from './routes/products.$id'
 import { Route as OrderProductIdRouteImport } from './routes/order.$productId'
 import { Route as MyOrdersIdRouteImport } from './routes/my-orders.$id'
 import { Route as AdminUsersRouteImport } from './routes/admin.users'
+import { Route as AdminDiseasesRouteImport } from './routes/admin.diseases'
+import { Route as AdminChatbotRouteImport } from './routes/admin.chatbot'
 import { Route as AdminCategoriesRouteImport } from './routes/admin.categories'
+import { Route as AdminCareRouteImport } from './routes/admin.care'
 import { Route as AdminProductsIndexRouteImport } from './routes/admin.products.index'
 import { Route as AdminOrdersIndexRouteImport } from './routes/admin.orders.index'
 import { Route as AdminProductsIdRouteImport } from './routes/admin.products.$id'
@@ -93,9 +96,24 @@ const AdminUsersRoute = AdminUsersRouteImport.update({
   path: '/admin/users',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminDiseasesRoute = AdminDiseasesRouteImport.update({
+  id: '/admin/diseases',
+  path: '/admin/diseases',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminChatbotRoute = AdminChatbotRouteImport.update({
+  id: '/admin/chatbot',
+  path: '/admin/chatbot',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminCategoriesRoute = AdminCategoriesRouteImport.update({
   id: '/admin/categories',
   path: '/admin/categories',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminCareRoute = AdminCareRouteImport.update({
+  id: '/admin/care',
+  path: '/admin/care',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminProductsIndexRoute = AdminProductsIndexRouteImport.update({
@@ -126,7 +144,10 @@ export interface FileRoutesByFullPath {
   '/diseases': typeof DiseasesRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/admin/care': typeof AdminCareRoute
   '/admin/categories': typeof AdminCategoriesRoute
+  '/admin/chatbot': typeof AdminChatbotRoute
+  '/admin/diseases': typeof AdminDiseasesRoute
   '/admin/users': typeof AdminUsersRoute
   '/my-orders/$id': typeof MyOrdersIdRoute
   '/order/$productId': typeof OrderProductIdRoute
@@ -146,7 +167,10 @@ export interface FileRoutesByTo {
   '/diseases': typeof DiseasesRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/admin/care': typeof AdminCareRoute
   '/admin/categories': typeof AdminCategoriesRoute
+  '/admin/chatbot': typeof AdminChatbotRoute
+  '/admin/diseases': typeof AdminDiseasesRoute
   '/admin/users': typeof AdminUsersRoute
   '/my-orders/$id': typeof MyOrdersIdRoute
   '/order/$productId': typeof OrderProductIdRoute
@@ -167,7 +191,10 @@ export interface FileRoutesById {
   '/diseases': typeof DiseasesRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/admin/care': typeof AdminCareRoute
   '/admin/categories': typeof AdminCategoriesRoute
+  '/admin/chatbot': typeof AdminChatbotRoute
+  '/admin/diseases': typeof AdminDiseasesRoute
   '/admin/users': typeof AdminUsersRoute
   '/my-orders/$id': typeof MyOrdersIdRoute
   '/order/$productId': typeof OrderProductIdRoute
@@ -189,7 +216,10 @@ export interface FileRouteTypes {
     | '/diseases'
     | '/login'
     | '/register'
+    | '/admin/care'
     | '/admin/categories'
+    | '/admin/chatbot'
+    | '/admin/diseases'
     | '/admin/users'
     | '/my-orders/$id'
     | '/order/$productId'
@@ -209,7 +239,10 @@ export interface FileRouteTypes {
     | '/diseases'
     | '/login'
     | '/register'
+    | '/admin/care'
     | '/admin/categories'
+    | '/admin/chatbot'
+    | '/admin/diseases'
     | '/admin/users'
     | '/my-orders/$id'
     | '/order/$productId'
@@ -229,7 +262,10 @@ export interface FileRouteTypes {
     | '/diseases'
     | '/login'
     | '/register'
+    | '/admin/care'
     | '/admin/categories'
+    | '/admin/chatbot'
+    | '/admin/diseases'
     | '/admin/users'
     | '/my-orders/$id'
     | '/order/$productId'
@@ -250,7 +286,10 @@ export interface RootRouteChildren {
   DiseasesRoute: typeof DiseasesRoute
   LoginRoute: typeof LoginRoute
   RegisterRoute: typeof RegisterRoute
+  AdminCareRoute: typeof AdminCareRoute
   AdminCategoriesRoute: typeof AdminCategoriesRoute
+  AdminChatbotRoute: typeof AdminChatbotRoute
+  AdminDiseasesRoute: typeof AdminDiseasesRoute
   AdminUsersRoute: typeof AdminUsersRoute
   MyOrdersIdRoute: typeof MyOrdersIdRoute
   OrderProductIdRoute: typeof OrderProductIdRoute
@@ -357,11 +396,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminUsersRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/diseases': {
+      id: '/admin/diseases'
+      path: '/admin/diseases'
+      fullPath: '/admin/diseases'
+      preLoaderRoute: typeof AdminDiseasesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/chatbot': {
+      id: '/admin/chatbot'
+      path: '/admin/chatbot'
+      fullPath: '/admin/chatbot'
+      preLoaderRoute: typeof AdminChatbotRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/categories': {
       id: '/admin/categories'
       path: '/admin/categories'
       fullPath: '/admin/categories'
       preLoaderRoute: typeof AdminCategoriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/care': {
+      id: '/admin/care'
+      path: '/admin/care'
+      fullPath: '/admin/care'
+      preLoaderRoute: typeof AdminCareRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/products/': {
@@ -402,7 +462,10 @@ const rootRouteChildren: RootRouteChildren = {
   DiseasesRoute: DiseasesRoute,
   LoginRoute: LoginRoute,
   RegisterRoute: RegisterRoute,
+  AdminCareRoute: AdminCareRoute,
   AdminCategoriesRoute: AdminCategoriesRoute,
+  AdminChatbotRoute: AdminChatbotRoute,
+  AdminDiseasesRoute: AdminDiseasesRoute,
   AdminUsersRoute: AdminUsersRoute,
   MyOrdersIdRoute: MyOrdersIdRoute,
   OrderProductIdRoute: OrderProductIdRoute,
