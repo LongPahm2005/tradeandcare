@@ -15,7 +15,7 @@ function ProductDetail() {
   const { data: related = [] } = useQuery({
     queryKey: ["related", product?.category_id],
     enabled: !!product?.category_id,
-    queryFn: async () => (await supabase.from("products").select("*").eq("category_id", product!.category_id).neq("id", id).limit(4)).data || [],
+    queryFn: async () => (await supabase.from("products").select("*").eq("category_id", product!.category_id!).neq("id", id).limit(4)).data || [],
   });
 
   if (!product) return <SiteLayout><div className="container mx-auto px-4 py-16 text-center">Đang tải...</div></SiteLayout>;
@@ -24,7 +24,7 @@ function ProductDetail() {
     <SiteLayout>
       <div className="container mx-auto px-4 py-8">
         <div className="grid md:grid-cols-2 gap-8 bg-white rounded-2xl p-6 border border-green-100 shadow-sm">
-          <img src={product.image_url} alt={product.name} className="w-full h-96 object-cover rounded-xl"/>
+          <img src={product.image_url || ""} alt={product.name} className="w-full h-96 object-cover rounded-xl"/>
           <div>
             <div className="text-sm text-green-700">{product.categories?.name}</div>
             <h1 className="text-3xl font-bold mt-1">{product.name}</h1>

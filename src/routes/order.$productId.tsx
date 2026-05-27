@@ -78,7 +78,7 @@ function OrderPage() {
             <button disabled={loading} className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-md font-medium disabled:opacity-50">{loading?"Đang xử lý...":"Xác nhận đặt hàng"}</button>
           </form>
           <div className="bg-white p-4 rounded-2xl border border-green-100 shadow-sm h-fit">
-            <img src={product.image_url} className="w-full h-32 object-cover rounded-md" alt=""/>
+            <img src={product.image_url || ""} className="w-full h-32 object-cover rounded-md" alt=""/>
             <div className="mt-2 font-semibold">{product.name}</div>
             <div className="text-sm text-gray-500">Đơn giá: {formatVND(Number(product.price))}</div>
             <div className="text-sm">Số lượng: {form.quantity}</div>
