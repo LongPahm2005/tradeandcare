@@ -9,38 +9,207 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as RegisterRouteImport } from './routes/register'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as DiseasesRouteImport } from './routes/diseases'
+import { Route as ChatbotRouteImport } from './routes/chatbot'
+import { Route as CareRouteImport } from './routes/care'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ProductsIndexRouteImport } from './routes/products.index'
+import { Route as MyOrdersIndexRouteImport } from './routes/my-orders.index'
+import { Route as ProductsIdRouteImport } from './routes/products.$id'
+import { Route as OrderProductIdRouteImport } from './routes/order.$productId'
+import { Route as MyOrdersIdRouteImport } from './routes/my-orders.$id'
 
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DiseasesRoute = DiseasesRouteImport.update({
+  id: '/diseases',
+  path: '/diseases',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChatbotRoute = ChatbotRouteImport.update({
+  id: '/chatbot',
+  path: '/chatbot',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CareRoute = CareRouteImport.update({
+  id: '/care',
+  path: '/care',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProductsIndexRoute = ProductsIndexRouteImport.update({
+  id: '/products/',
+  path: '/products/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MyOrdersIndexRoute = MyOrdersIndexRouteImport.update({
+  id: '/my-orders/',
+  path: '/my-orders/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductsIdRoute = ProductsIdRouteImport.update({
+  id: '/products/$id',
+  path: '/products/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrderProductIdRoute = OrderProductIdRouteImport.update({
+  id: '/order/$productId',
+  path: '/order/$productId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MyOrdersIdRoute = MyOrdersIdRouteImport.update({
+  id: '/my-orders/$id',
+  path: '/my-orders/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/care': typeof CareRoute
+  '/chatbot': typeof ChatbotRoute
+  '/diseases': typeof DiseasesRoute
+  '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
+  '/my-orders/$id': typeof MyOrdersIdRoute
+  '/order/$productId': typeof OrderProductIdRoute
+  '/products/$id': typeof ProductsIdRoute
+  '/my-orders/': typeof MyOrdersIndexRoute
+  '/products/': typeof ProductsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/care': typeof CareRoute
+  '/chatbot': typeof ChatbotRoute
+  '/diseases': typeof DiseasesRoute
+  '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
+  '/my-orders/$id': typeof MyOrdersIdRoute
+  '/order/$productId': typeof OrderProductIdRoute
+  '/products/$id': typeof ProductsIdRoute
+  '/my-orders': typeof MyOrdersIndexRoute
+  '/products': typeof ProductsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/care': typeof CareRoute
+  '/chatbot': typeof ChatbotRoute
+  '/diseases': typeof DiseasesRoute
+  '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
+  '/my-orders/$id': typeof MyOrdersIdRoute
+  '/order/$productId': typeof OrderProductIdRoute
+  '/products/$id': typeof ProductsIdRoute
+  '/my-orders/': typeof MyOrdersIndexRoute
+  '/products/': typeof ProductsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/care'
+    | '/chatbot'
+    | '/diseases'
+    | '/login'
+    | '/register'
+    | '/my-orders/$id'
+    | '/order/$productId'
+    | '/products/$id'
+    | '/my-orders/'
+    | '/products/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/care'
+    | '/chatbot'
+    | '/diseases'
+    | '/login'
+    | '/register'
+    | '/my-orders/$id'
+    | '/order/$productId'
+    | '/products/$id'
+    | '/my-orders'
+    | '/products'
+  id:
+    | '__root__'
+    | '/'
+    | '/care'
+    | '/chatbot'
+    | '/diseases'
+    | '/login'
+    | '/register'
+    | '/my-orders/$id'
+    | '/order/$productId'
+    | '/products/$id'
+    | '/my-orders/'
+    | '/products/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CareRoute: typeof CareRoute
+  ChatbotRoute: typeof ChatbotRoute
+  DiseasesRoute: typeof DiseasesRoute
+  LoginRoute: typeof LoginRoute
+  RegisterRoute: typeof RegisterRoute
+  MyOrdersIdRoute: typeof MyOrdersIdRoute
+  OrderProductIdRoute: typeof OrderProductIdRoute
+  ProductsIdRoute: typeof ProductsIdRoute
+  MyOrdersIndexRoute: typeof MyOrdersIndexRoute
+  ProductsIndexRoute: typeof ProductsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/diseases': {
+      id: '/diseases'
+      path: '/diseases'
+      fullPath: '/diseases'
+      preLoaderRoute: typeof DiseasesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/chatbot': {
+      id: '/chatbot'
+      path: '/chatbot'
+      fullPath: '/chatbot'
+      preLoaderRoute: typeof ChatbotRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/care': {
+      id: '/care'
+      path: '/care'
+      fullPath: '/care'
+      preLoaderRoute: typeof CareRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,12 +217,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/products/': {
+      id: '/products/'
+      path: '/products'
+      fullPath: '/products/'
+      preLoaderRoute: typeof ProductsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/my-orders/': {
+      id: '/my-orders/'
+      path: '/my-orders'
+      fullPath: '/my-orders/'
+      preLoaderRoute: typeof MyOrdersIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/products/$id': {
+      id: '/products/$id'
+      path: '/products/$id'
+      fullPath: '/products/$id'
+      preLoaderRoute: typeof ProductsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/order/$productId': {
+      id: '/order/$productId'
+      path: '/order/$productId'
+      fullPath: '/order/$productId'
+      preLoaderRoute: typeof OrderProductIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/my-orders/$id': {
+      id: '/my-orders/$id'
+      path: '/my-orders/$id'
+      fullPath: '/my-orders/$id'
+      preLoaderRoute: typeof MyOrdersIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CareRoute: CareRoute,
+  ChatbotRoute: ChatbotRoute,
+  DiseasesRoute: DiseasesRoute,
+  LoginRoute: LoginRoute,
+  RegisterRoute: RegisterRoute,
+  MyOrdersIdRoute: MyOrdersIdRoute,
+  OrderProductIdRoute: OrderProductIdRoute,
+  ProductsIdRoute: ProductsIdRoute,
+  MyOrdersIndexRoute: MyOrdersIndexRoute,
+  ProductsIndexRoute: ProductsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
