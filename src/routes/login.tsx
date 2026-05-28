@@ -24,7 +24,7 @@ function Login() {
   };
 
   return (
-    <SiteLayout hideChatbot>
+    <SiteLayout>
       <div className="container mx-auto px-4 py-16 max-w-md">
         <div className="bg-white rounded-2xl shadow-sm border border-green-100 p-8">
           <div className="flex flex-col items-center mb-6">
