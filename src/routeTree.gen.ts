@@ -12,7 +12,6 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as DiseasesRouteImport } from './routes/diseases'
-import { Route as ChatbotRouteImport } from './routes/chatbot'
 import { Route as CareRouteImport } from './routes/care'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProductsIndexRouteImport } from './routes/products.index'
@@ -44,11 +43,6 @@ const LoginRoute = LoginRouteImport.update({
 const DiseasesRoute = DiseasesRouteImport.update({
   id: '/diseases',
   path: '/diseases',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ChatbotRoute = ChatbotRouteImport.update({
-  id: '/chatbot',
-  path: '/chatbot',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CareRoute = CareRouteImport.update({
@@ -140,7 +134,6 @@ const AdminOrdersIdRoute = AdminOrdersIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/care': typeof CareRoute
-  '/chatbot': typeof ChatbotRoute
   '/diseases': typeof DiseasesRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
@@ -163,7 +156,6 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/care': typeof CareRoute
-  '/chatbot': typeof ChatbotRoute
   '/diseases': typeof DiseasesRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
@@ -187,7 +179,6 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/care': typeof CareRoute
-  '/chatbot': typeof ChatbotRoute
   '/diseases': typeof DiseasesRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
@@ -212,7 +203,6 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/care'
-    | '/chatbot'
     | '/diseases'
     | '/login'
     | '/register'
@@ -235,7 +225,6 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/care'
-    | '/chatbot'
     | '/diseases'
     | '/login'
     | '/register'
@@ -258,7 +247,6 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/care'
-    | '/chatbot'
     | '/diseases'
     | '/login'
     | '/register'
@@ -282,7 +270,6 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CareRoute: typeof CareRoute
-  ChatbotRoute: typeof ChatbotRoute
   DiseasesRoute: typeof DiseasesRoute
   LoginRoute: typeof LoginRoute
   RegisterRoute: typeof RegisterRoute
@@ -324,13 +311,6 @@ declare module '@tanstack/react-router' {
       path: '/diseases'
       fullPath: '/diseases'
       preLoaderRoute: typeof DiseasesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/chatbot': {
-      id: '/chatbot'
-      path: '/chatbot'
-      fullPath: '/chatbot'
-      preLoaderRoute: typeof ChatbotRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/care': {
@@ -458,7 +438,6 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CareRoute: CareRoute,
-  ChatbotRoute: ChatbotRoute,
   DiseasesRoute: DiseasesRoute,
   LoginRoute: LoginRoute,
   RegisterRoute: RegisterRoute,
@@ -481,3 +460,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
