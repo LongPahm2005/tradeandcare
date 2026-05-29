@@ -23,6 +23,7 @@ import { Route as OrderProductIdRouteImport } from './routes/order.$productId'
 import { Route as MyOrdersIdRouteImport } from './routes/my-orders.$id'
 import { Route as AdminUsersRouteImport } from './routes/admin.users'
 import { Route as AdminDiseasesRouteImport } from './routes/admin.diseases'
+import { Route as AdminChatbotSettingsRouteImport } from './routes/admin.chatbot-settings'
 import { Route as AdminChatbotRouteImport } from './routes/admin.chatbot'
 import { Route as AdminCategoriesRouteImport } from './routes/admin.categories'
 import { Route as AdminCareRouteImport } from './routes/admin.care'
@@ -101,6 +102,11 @@ const AdminDiseasesRoute = AdminDiseasesRouteImport.update({
   path: '/admin/diseases',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminChatbotSettingsRoute = AdminChatbotSettingsRouteImport.update({
+  id: '/admin/chatbot-settings',
+  path: '/admin/chatbot-settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminChatbotRoute = AdminChatbotRouteImport.update({
   id: '/admin/chatbot',
   path: '/admin/chatbot',
@@ -146,6 +152,7 @@ export interface FileRoutesByFullPath {
   '/admin/care': typeof AdminCareRoute
   '/admin/categories': typeof AdminCategoriesRoute
   '/admin/chatbot': typeof AdminChatbotRoute
+  '/admin/chatbot-settings': typeof AdminChatbotSettingsRoute
   '/admin/diseases': typeof AdminDiseasesRoute
   '/admin/users': typeof AdminUsersRoute
   '/my-orders/$id': typeof MyOrdersIdRoute
@@ -169,6 +176,7 @@ export interface FileRoutesByTo {
   '/admin/care': typeof AdminCareRoute
   '/admin/categories': typeof AdminCategoriesRoute
   '/admin/chatbot': typeof AdminChatbotRoute
+  '/admin/chatbot-settings': typeof AdminChatbotSettingsRoute
   '/admin/diseases': typeof AdminDiseasesRoute
   '/admin/users': typeof AdminUsersRoute
   '/my-orders/$id': typeof MyOrdersIdRoute
@@ -193,6 +201,7 @@ export interface FileRoutesById {
   '/admin/care': typeof AdminCareRoute
   '/admin/categories': typeof AdminCategoriesRoute
   '/admin/chatbot': typeof AdminChatbotRoute
+  '/admin/chatbot-settings': typeof AdminChatbotSettingsRoute
   '/admin/diseases': typeof AdminDiseasesRoute
   '/admin/users': typeof AdminUsersRoute
   '/my-orders/$id': typeof MyOrdersIdRoute
@@ -218,6 +227,7 @@ export interface FileRouteTypes {
     | '/admin/care'
     | '/admin/categories'
     | '/admin/chatbot'
+    | '/admin/chatbot-settings'
     | '/admin/diseases'
     | '/admin/users'
     | '/my-orders/$id'
@@ -241,6 +251,7 @@ export interface FileRouteTypes {
     | '/admin/care'
     | '/admin/categories'
     | '/admin/chatbot'
+    | '/admin/chatbot-settings'
     | '/admin/diseases'
     | '/admin/users'
     | '/my-orders/$id'
@@ -264,6 +275,7 @@ export interface FileRouteTypes {
     | '/admin/care'
     | '/admin/categories'
     | '/admin/chatbot'
+    | '/admin/chatbot-settings'
     | '/admin/diseases'
     | '/admin/users'
     | '/my-orders/$id'
@@ -288,6 +300,7 @@ export interface RootRouteChildren {
   AdminCareRoute: typeof AdminCareRoute
   AdminCategoriesRoute: typeof AdminCategoriesRoute
   AdminChatbotRoute: typeof AdminChatbotRoute
+  AdminChatbotSettingsRoute: typeof AdminChatbotSettingsRoute
   AdminDiseasesRoute: typeof AdminDiseasesRoute
   AdminUsersRoute: typeof AdminUsersRoute
   MyOrdersIdRoute: typeof MyOrdersIdRoute
@@ -403,6 +416,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminDiseasesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/chatbot-settings': {
+      id: '/admin/chatbot-settings'
+      path: '/admin/chatbot-settings'
+      fullPath: '/admin/chatbot-settings'
+      preLoaderRoute: typeof AdminChatbotSettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/chatbot': {
       id: '/admin/chatbot'
       path: '/admin/chatbot'
@@ -464,6 +484,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminCareRoute: AdminCareRoute,
   AdminCategoriesRoute: AdminCategoriesRoute,
   AdminChatbotRoute: AdminChatbotRoute,
+  AdminChatbotSettingsRoute: AdminChatbotSettingsRoute,
   AdminDiseasesRoute: AdminDiseasesRoute,
   AdminUsersRoute: AdminUsersRoute,
   MyOrdersIdRoute: MyOrdersIdRoute,
