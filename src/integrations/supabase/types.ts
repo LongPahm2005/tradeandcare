@@ -14,6 +14,33 @@ export type Database = {
   }
   public: {
     Tables: {
+      ai_settings: {
+        Row: {
+          id: string
+          model: string
+          rules: string
+          system_prompt: string
+          temperature: number
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          model?: string
+          rules?: string
+          system_prompt?: string
+          temperature?: number
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          model?: string
+          rules?: string
+          system_prompt?: string
+          temperature?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       categories: {
         Row: {
           created_at: string
