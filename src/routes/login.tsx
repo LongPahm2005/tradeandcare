@@ -43,6 +43,9 @@ function Login() {
             </div>
             <button disabled={loading} className="w-full bg-green-600 hover:bg-green-700 text-white py-2.5 rounded-md font-medium disabled:opacity-50">{loading?"Đang đăng nhập...":"Đăng nhập"}</button>
           </form>
+          <div className="flex justify-between items-center text-sm mt-2">
+            <Link to="/forgot-password" className="text-green-700 font-medium hover:underline">Quên mật khẩu?</Link>
+          </div>
           <div className="text-center text-sm mt-4 text-gray-600">Chưa có tài khoản? <Link to="/register" className="text-green-700 font-medium hover:underline">Đăng ký</Link></div>
         </div>
       </div>
