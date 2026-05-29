@@ -9,8 +9,10 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as DiseasesRouteImport } from './routes/diseases'
 import { Route as CareRouteImport } from './routes/care'
 import { Route as IndexRouteImport } from './routes/index'
@@ -32,6 +34,11 @@ import { Route as AdminOrdersIndexRouteImport } from './routes/admin.orders.inde
 import { Route as AdminProductsIdRouteImport } from './routes/admin.products.$id'
 import { Route as AdminOrdersIdRouteImport } from './routes/admin.orders.$id'
 
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
   path: '/register',
@@ -40,6 +47,11 @@ const RegisterRoute = RegisterRouteImport.update({
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DiseasesRoute = DiseasesRouteImport.update({
@@ -147,8 +159,10 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/care': typeof CareRoute
   '/diseases': typeof DiseasesRoute
+  '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/admin/care': typeof AdminCareRoute
   '/admin/categories': typeof AdminCategoriesRoute
   '/admin/chatbot': typeof AdminChatbotRoute
@@ -171,8 +185,10 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/care': typeof CareRoute
   '/diseases': typeof DiseasesRoute
+  '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/admin/care': typeof AdminCareRoute
   '/admin/categories': typeof AdminCategoriesRoute
   '/admin/chatbot': typeof AdminChatbotRoute
@@ -196,8 +212,10 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/care': typeof CareRoute
   '/diseases': typeof DiseasesRoute
+  '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/admin/care': typeof AdminCareRoute
   '/admin/categories': typeof AdminCategoriesRoute
   '/admin/chatbot': typeof AdminChatbotRoute
@@ -222,8 +240,10 @@ export interface FileRouteTypes {
     | '/'
     | '/care'
     | '/diseases'
+    | '/forgot-password'
     | '/login'
     | '/register'
+    | '/reset-password'
     | '/admin/care'
     | '/admin/categories'
     | '/admin/chatbot'
@@ -246,8 +266,10 @@ export interface FileRouteTypes {
     | '/'
     | '/care'
     | '/diseases'
+    | '/forgot-password'
     | '/login'
     | '/register'
+    | '/reset-password'
     | '/admin/care'
     | '/admin/categories'
     | '/admin/chatbot'
@@ -270,8 +292,10 @@ export interface FileRouteTypes {
     | '/'
     | '/care'
     | '/diseases'
+    | '/forgot-password'
     | '/login'
     | '/register'
+    | '/reset-password'
     | '/admin/care'
     | '/admin/categories'
     | '/admin/chatbot'
@@ -295,8 +319,10 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CareRoute: typeof CareRoute
   DiseasesRoute: typeof DiseasesRoute
+  ForgotPasswordRoute: typeof ForgotPasswordRoute
   LoginRoute: typeof LoginRoute
   RegisterRoute: typeof RegisterRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   AdminCareRoute: typeof AdminCareRoute
   AdminCategoriesRoute: typeof AdminCategoriesRoute
   AdminChatbotRoute: typeof AdminChatbotRoute
@@ -318,6 +344,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/register': {
       id: '/register'
       path: '/register'
@@ -330,6 +363,13 @@ declare module '@tanstack/react-router' {
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/forgot-password': {
+      id: '/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof ForgotPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/diseases': {
@@ -479,8 +519,10 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CareRoute: CareRoute,
   DiseasesRoute: DiseasesRoute,
+  ForgotPasswordRoute: ForgotPasswordRoute,
   LoginRoute: LoginRoute,
   RegisterRoute: RegisterRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   AdminCareRoute: AdminCareRoute,
   AdminCategoriesRoute: AdminCategoriesRoute,
   AdminChatbotRoute: AdminChatbotRoute,
@@ -502,3 +544,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
