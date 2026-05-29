@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { createClient } from "@supabase/supabase-js";
 
 const MessageSchema = z.object({
   role: z.enum(["user", "assistant", "system"]),
@@ -10,12 +11,7 @@ const InputSchema = z.object({
   messages: z.array(MessageSchema).min(1).max(30),
 });
 
-const SYSTEM_PROMPT = `Bạn là "Trợ lý chăm sóc cây" của website Trade & Care Plants — chuyên về cây cảnh và cây ăn quả tại Việt Nam.
-- Luôn trả lời bằng tiếng Việt, ngắn gọn, thân thiện, dễ hiểu.
-- Tập trung vào: tưới nước, ánh sáng, đất trồng, phân bón, sâu bệnh, cách trồng và chăm sóc cây.
-- Khi phù hợp, gợi ý loại sản phẩm có thể giúp (phân bón, thuốc trị bệnh, dụng cụ làm vườn).
-- Nếu câu hỏi không liên quan đến cây trồng, lịch sự hướng người dùng quay lại chủ đề.
-- Định dạng câu trả lời rõ ràng, có thể dùng gạch đầu dòng khi liệt kê.`;
+const FALLBACK_PROMPT = `Bạn là "Trợ lý chăm sóc cây" của Trade & Care Plants. Trả lời bằng tiếng Việt, ngắn gọn, thân thiện.`;
 
 export const chatWithAI = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => InputSchema.parse(data))
@@ -25,6 +21,30 @@ export const chatWithAI = createServerFn({ method: "POST" })
       throw new Error("Chưa cấu hình LOVABLE_API_KEY");
     }
 
+    // Load latest AI settings from DB
+    let systemPrompt = FALLBACK_PROMPT;
+    let model = "google/gemini-2.5-flash";
+    let temperature = 0.7;
+    try {
+      const sb = createClient(
+        process.env.SUPABASE_URL!,
+        process.env.SUPABASE_PUBLISHABLE_KEY!,
+      );
+      const { data: cfg } = await sb
+        .from("ai_settings")
+        .select("system_prompt, rules, model, temperature")
+        .order("updated_at", { ascending: false })
+        .limit(1)
+        .maybeSingle();
+      if (cfg) {
+        systemPrompt = [cfg.system_prompt, cfg.rules].filter(Boolean).join("\n\n") || FALLBACK_PROMPT;
+        if (cfg.model) model = cfg.model;
+        if (typeof cfg.temperature === "number") temperature = cfg.temperature;
+      }
+    } catch (e) {
+      console.error("Không tải được ai_settings:", e);
+    }
+
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -32,9 +52,10 @@ export const chatWithAI = createServerFn({ method: "POST" })
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "google/gemini-3-flash-preview",
+        model,
+        temperature,
         messages: [
-          { role: "system", content: SYSTEM_PROMPT },
+          { role: "system", content: systemPrompt },
           ...data.messages,
         ],
       }),
