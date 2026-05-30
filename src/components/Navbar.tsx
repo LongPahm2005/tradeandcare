@@ -12,7 +12,6 @@ export function Navbar() {
     { to: "/products", label: "Sản phẩm" },
     { to: "/care", label: "Chăm sóc cây" },
     { to: "/diseases", label: "Tra cứu bệnh cây" },
-    { to: "/chatbot", label: "Chatbot tư vấn" },
   ];
 
   return (
