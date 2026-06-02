@@ -62,33 +62,6 @@ export type Database = {
         }
         Relationships: []
       }
-      chatbot_responses: {
-        Row: {
-          created_at: string
-          id: string
-          keyword: string
-          question_sample: string | null
-          response: string
-          suggested_product_type: string | null
-        }
-        Insert: {
-          created_at?: string
-          id?: string
-          keyword: string
-          question_sample?: string | null
-          response: string
-          suggested_product_type?: string | null
-        }
-        Update: {
-          created_at?: string
-          id?: string
-          keyword?: string
-          question_sample?: string | null
-          response?: string
-          suggested_product_type?: string | null
-        }
-        Relationships: []
-      }
       order_details: {
         Row: {
           id: string
