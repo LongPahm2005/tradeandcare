@@ -1,7 +1,10 @@
-import { ReactNode } from "react";
+import { ReactNode, lazy, Suspense } from "react";
 import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
-import { ChatbotFab } from "./ChatbotFab";
+
+const ChatbotFab = lazy(() =>
+  import("./ChatbotFab").then((m) => ({ default: m.ChatbotFab })),
+);
 
 export function SiteLayout({ children }: { children: ReactNode }) {
   return (
@@ -9,7 +12,9 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       <Navbar />
       <main className="flex-1">{children}</main>
       <Footer />
-      <ChatbotFab />
+      <Suspense fallback={null}>
+        <ChatbotFab />
+      </Suspense>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ReactNode } from "react";
 import { useAuth } from "@/contexts/AuthContext";
-import { LayoutDashboard, Users, Tag, Package, ShoppingBag, BookOpen, Bug, MessageSquare, Home, Sparkles } from "lucide-react";
+import { LayoutDashboard, Users, Tag, Package, ShoppingBag, BookOpen, Bug, Home, Sparkles } from "lucide-react";
 
 export function AdminLayout({ children }: { children: ReactNode }) {
   const { user, isAdmin, loading } = useAuth();
@@ -18,7 +18,6 @@ export function AdminLayout({ children }: { children: ReactNode }) {
     { to: "/admin/orders", label: "Đơn hàng", icon: ShoppingBag },
     { to: "/admin/care", label: "Chăm sóc cây", icon: BookOpen },
     { to: "/admin/diseases", label: "Bệnh cây", icon: Bug },
-    { to: "/admin/chatbot", label: "Chatbot", icon: MessageSquare },
     { to: "/admin/chatbot-settings", label: "Cấu hình AI", icon: Sparkles },
   ];
 
