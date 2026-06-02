@@ -56,7 +56,22 @@ function OrderPage() {
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (product.stock_quantity <= 0) return toast.error("Sản phẩm đã hết hàng");
+    if (form.quantity > product.stock_quantity)
+      return toast.error(`Chỉ còn ${product.stock_quantity} sản phẩm trong kho`);
     setLoading(true);
+
+    // Re-check tồn kho mới nhất để tránh race condition
+    const { data: fresh } = await supabase
+      .from("products")
+      .select("stock_quantity")
+      .eq("id", product.id)
+      .maybeSingle();
+    if (!fresh || fresh.stock_quantity < form.quantity) {
+      setLoading(false);
+      return toast.error(`Chỉ còn ${fresh?.stock_quantity ?? 0} sản phẩm trong kho`);
+    }
+
     const { data: order, error } = await supabase
       .from("orders")
       .insert({
@@ -81,11 +96,21 @@ function OrderPage() {
       unit_price: product.price,
       subtotal: total,
     });
+    if (e2) {
+      setLoading(false);
+      return toast.error(e2.message);
+    }
+    // Trừ tồn kho
+    await supabase
+      .from("products")
+      .update({ stock_quantity: fresh.stock_quantity - form.quantity })
+      .eq("id", product.id);
+
     setLoading(false);
-    if (e2) return toast.error(e2.message);
     toast.success("Đặt hàng thành công!");
     nav({ to: "/thanh-toan/$orderId", params: { orderId: order.id } });
   };
+
 
   return (
     <SiteLayout>
